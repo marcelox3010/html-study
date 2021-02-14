@@ -1,0 +1,110 @@
+<html>
+    <body>        
+        <script>
+            
+            planos = Array;
+            planos = [
+                [2,2,96],
+                [2,3,136.8],
+                [2,4,178],
+                [2,5,216],
+                [3,2,139.7],
+                [3,3,198.7],
+                [3,4,259.7],
+                [3,5,313.2],
+                [4,2,180.5],
+                [4,3,257.3],
+                [4,4,336.65],
+                [4,5,406.4],
+                [5,2,216],
+                [5,3,308.4],
+                [5,4,403.2],
+                [5,5,486]
+            ];
+            
+            function habilita_espcial(){
+
+                if(document.getElementById("id_especial").checked == true) document.getElementById("id_div_especial").style.display = "block";
+                else document.getElementById("id_div_especial").style.display = "none";
+                
+
+            }
+
+            function processa_plano(){
+
+                document.getElementById("id_plano").innerHTML = "Seu plano escolhido foi ??? ";
+
+            }
+        </script>
+        <div name="formulario" id="id_formulario">
+            <form>
+                
+                <div id="id_dias_semana">
+                    Dias por semana:<br>
+                    <input type="checkbox" name="dias[]" onchange="javascript:processa_plano();"> Segunda-feira
+                    <input type="checkbox" name="dias[]" onchange="javascript:processa_plano();"> Terça-feira
+                    <input type="checkbox" name="dias[]" onchange="javascript:processa_plano();"> Quarta-feira
+                    <input type="checkbox" name="dias[]" onchange="javascript:processa_plano();"> Quinta-feira
+                    <input type="checkbox" name="dias[]" onchange="javascript:processa_plano();"> Sexta-feira
+                </div>
+                <div id="id_horario_entrega">
+                    Horário de entrega:<br>
+                    <input type="radio" name="horario" value="6" onchange="javascript:processa_plano();"> 6h
+                    <input type="radio" name="horario" value="7" onchange="javascript:processa_plano();"> 7h
+                    <input type="radio" name="horario" value="8" onchange="javascript:processa_plano();"> 8h
+                    <input type="radio" name="horario" value="9" onchange="javascript:processa_plano();"> 9h
+                </div>
+                <div id="id_itens">
+                    Itens a serem enviados (máximo 5 itens):<br>
+                    <select name="qtd_pao_de_sal" onchange="javascript:processa_plano();">
+                        <option value="0">--</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>&nbsp;Pão de Sal<br/>
+                    <select name="qtd_pao_doce" onchange="javascript:processa_plano();">
+                        <option value="0">--</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>&nbsp;Pão Doce<br/>
+                    <select name="qtd_pao_queijo" onchange="javascript:processa_plano();">
+                        <option value="0">--</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>&nbsp;Pão de Queijo<br/>
+                    <select name="qtd_broinha" onchange="javascript:processa_plano();">
+                        <option value="0">--</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>&nbsp;Broinha
+                </div>
+                <div id="id_div_check_paes_especiais">
+                    <input type="checkbox" name="especial" id="id_especial" onclick="javascript:habilita_espcial();processa_plano();"> Desejo pães especiais na Sexta-feira?<br>
+                </div>
+                <div style="display: none;" id="id_div_especial">
+                    Horário de entrega:
+                    <input type="radio" name="horario" value="17"> 17h
+                    <input type="radio" name="horario" value="18"> 18h
+                    <input type="radio" name="horario" value="19"> 19h
+                    <input type="radio" name="horario" value="20"> 20h
+                </div>
+                <div name="plano" id="id_plano"></div>
+                <div id="id_bt_enviar">
+                    <input type="button" value="Enviar Proposta" onclik="javascript:">
+                </div>
+            </form>
+        </div>
+        
+    </body>
+</html>
