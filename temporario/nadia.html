@@ -32,31 +32,85 @@
 
             function processa_plano(){
 
+                dia1 = document.getElementById("id_dia_1");
+                dia2 = document.getElementById("id_dia_2");
+                dia3 = document.getElementById("id_dia_3");
+                dia4 = document.getElementById("id_dia_4");
+                dia5 = document.getElementById("id_dia_5");
+
+                dia5 = document.getElementById("id_dia_5");
+
                 document.getElementById("id_plano").innerHTML = "Seu plano escolhido foi ??? ";
 
             }
         </script>
-        <div name="formulario" id="id_formulario">
-            <form>
-                
+        <div    id="id_tela_sucesso" 
+                style="display: none;">
+            Formulário enviado com sucesso. Espere o contato de um representante. Ou entre em contato no telefone (31) XXXXX-XXXX
+        </div>
+        <div    id="id_tela_erro" 
+                style="display: none;">
+            Tivemos dificuldade de enviar seu formulário. Por favor, tente novamente ou entre em contato no telefone (31) XXXXX-XXXX
+        </div>
+        <div    name="formulario" 
+                id="id_formulario">
+            <form name="main_form">
                 <div id="id_dias_semana">
                     Dias por semana:<br>
-                    <input type="checkbox" name="dias[]" onchange="javascript:processa_plano();"> Segunda-feira
-                    <input type="checkbox" name="dias[]" onchange="javascript:processa_plano();"> Terça-feira
-                    <input type="checkbox" name="dias[]" onchange="javascript:processa_plano();"> Quarta-feira
-                    <input type="checkbox" name="dias[]" onchange="javascript:processa_plano();"> Quinta-feira
-                    <input type="checkbox" name="dias[]" onchange="javascript:processa_plano();"> Sexta-feira
+                    <input  type="checkbox" 
+                            id="id_dia_1" 
+                            name="dias[]" 
+                            onchange="javascript:processa_plano();"> Segunda-feira
+                    <input  type="checkbox" 
+                            id="id_dia_2" 
+                            name="dias[]" 
+                            onchange="javascript:processa_plano();"> Terça-feira
+                    <input  type="checkbox" 
+                            id="id_dia_3" 
+                            name="dias[]" 
+                            onchange="javascript:processa_plano();"> Quarta-feira
+                    <input  type="checkbox" 
+                            id="id_dia_4" 
+                            name="dias[]" 
+                            onchange="javascript:processa_plano();"> Quinta-feira
+                    <input  type="checkbox" 
+                            id="id_dia_5" 
+                            name="dias[]" 
+                            onchange="javascript:processa_plano();"> Sexta-feira
                 </div>
                 <div id="id_horario_entrega">
-                    Horário de entrega:<br>
-                    <input type="radio" name="horario" value="6" onchange="javascript:processa_plano();"> 6h
-                    <input type="radio" name="horario" value="7" onchange="javascript:processa_plano();"> 7h
-                    <input type="radio" name="horario" value="8" onchange="javascript:processa_plano();"> 8h
-                    <input type="radio" name="horario" value="9" onchange="javascript:processa_plano();"> 9h
+                    Horário de entrega*:<br>
+                    <input  type="radio" 
+                            id="id_h1" 
+                            name="horario" 
+                            value="6" 
+                            onchange="javascript:processa_plano();"
+                            required> 
+                            <label for="6h">6h</label>
+                    <input  type="radio" 
+                            id="id_h2" 
+                            name="horario" 
+                            value="7" 
+                            onchange="javascript:processa_plano();"> 
+                            <label for="7h">7h</label>
+                    <input  type="radio" 
+                            id="id_h3" 
+                            name="horario" 
+                            value="8" 
+                            onchange="javascript:processa_plano();"> 
+                            <label for="">8h</label>
+                    <input  type="radio" 
+                            id="id_h4" 
+                            name="horario" 
+                            value="9" 
+                            onchange="javascript:processa_plano();"> 
+                            <label for="9h">9h</label>
                 </div>
                 <div id="id_itens">
-                    Itens a serem enviados (máximo 5 itens):<br>
-                    <select name="qtd_pao_de_sal" onchange="javascript:processa_plano();">
+                    Itens a serem enviados (soma máxima de todos os itens: 5 itens):<br>
+                    <select id="id_qtd_pao_de_sal" 
+                            name="qtd_pao_de_sal" 
+                            onchange="javascript:processa_plano();">
                         <option value="0">--</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -64,7 +118,9 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>&nbsp;Pão de Sal<br/>
-                    <select name="qtd_pao_doce" onchange="javascript:processa_plano();">
+                    <select id="id_qtd_pao_doce" 
+                            name="qtd_pao_doce" 
+                            onchange="javascript:processa_plano();">
                         <option value="0">--</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -72,7 +128,9 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>&nbsp;Pão Doce<br/>
-                    <select name="qtd_pao_queijo" onchange="javascript:processa_plano();">
+                    <select id="id_qtd_pao_queijo" 
+                            name="qtd_pao_queijo" 
+                            onchange="javascript:processa_plano();">
                         <option value="0">--</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -80,7 +138,9 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>&nbsp;Pão de Queijo<br/>
-                    <select name="qtd_broinha" onchange="javascript:processa_plano();">
+                    <select id="id_qtd_broinha" 
+                            name="qtd_broinha" 
+                            onchange="javascript:processa_plano();">
                         <option value="0">--</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -90,18 +150,35 @@
                     </select>&nbsp;Broinha
                 </div>
                 <div id="id_div_check_paes_especiais">
-                    <input type="checkbox" name="especial" id="id_especial" onclick="javascript:habilita_espcial();processa_plano();"> Desejo pães especiais na Sexta-feira?<br>
+                    <input  type="checkbox"
+                            id="id_especial" 
+                            name="especial" 
+                            onclick="javascript:habilita_espcial();processa_plano();"/>
+                            Desejo pães especiais na Sexta-feira?
                 </div>
                 <div style="display: none;" id="id_div_especial">
                     Horário de entrega:
-                    <input type="radio" name="horario" value="17"> 17h
-                    <input type="radio" name="horario" value="18"> 18h
-                    <input type="radio" name="horario" value="19"> 19h
-                    <input type="radio" name="horario" value="20"> 20h
+                    <input  type="radio" 
+                            name="horario" 
+                            value="17"
+                            checked> 17h
+                    <input  type="radio" 
+                            name="horario" 
+                            value="18"> 18h
+                    <input  type="radio" 
+                            name="horario" 
+                            value="19"> 19h
+                    <input  type="radio" 
+                            name="horario" 
+                            value="20"> 20h
                 </div>
                 <div name="plano" id="id_plano"></div>
                 <div id="id_bt_enviar">
-                    <input type="button" value="Enviar Proposta" onclik="javascript:">
+                    <input  type="button" 
+                            value="Enviar Proposta" 
+                            onclik="">
+                    <input  type="submit" 
+                            value="teste">
                 </div>
             </form>
         </div>
