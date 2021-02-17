@@ -2,47 +2,315 @@
     <body>        
         <script>
             
-            planos = Array;
-            planos = [
-                [2,2,96],
-                [2,3,136.8],
-                [2,4,178],
-                [2,5,216],
-                [3,2,139.7],
-                [3,3,198.7],
-                [3,4,259.7],
-                [3,5,313.2],
-                [4,2,180.5],
-                [4,3,257.3],
-                [4,4,336.65],
-                [4,5,406.4],
-                [5,2,216],
-                [5,3,308.4],
-                [5,4,403.2],
-                [5,5,486]
-            ];
+            var valor_plano_especial = 199;
             
-            function habilita_espcial(){
-
-                if(document.getElementById("id_especial").checked == true) document.getElementById("id_div_especial").style.display = "block";
-                else document.getElementById("id_div_especial").style.display = "none";
+            var planos = [
                 
+                "Adoro Pão - 2x Semana",
+                "Apaixonados por Pão - 3x Semana",
+                "Amo Pão - 4x Semana",
+                "Fanátivos por Pão - 5x Semana"
+        
+            ];
+
+
+            function mascaraTelefone(v){
+                v=v.replace(/\D/g,"");
+                v=v.replace(/^(\d{2})(\d)/g,"($1) $2");
+                v=v.replace(/(\d)(\d{4})$/,"$1-$2");
+                return v;
+            }
+
+            function validaEmail(email){
+
+                strMail = email;
+                re = /^[^@]+@[^@]+.[a-z]{2,}$/i;
+                if(strMail.search(re) == -1) return false;
+                else return true;
 
             }
 
-            function processa_plano(){
+            function valida_nome(){
+                
+                nome = document.getElementById("id_nome").value;
+                if(nome.length > 0) return true;
+                else return false;
+
+            }
+
+            function valida_endereco(){
+
+                endereco = document.getElementById("id_endereco").value;
+                if(endereco.length > 0) return true;
+                else return false;
+
+            }
+
+            function valida_telefone(){
+
+                telefone = document.getElementById("id_telefone").value;
+                if(telefone.length == 15) return true;
+                else return false;
+
+            }
+
+            function valida_email(){
+
+                email = document.getElementById("id_email").value;
+                if(validaEmail(email)) return true;
+                else return false;
+
+            }
+            
+            function get_quantidade_dias(){
 
                 dia1 = document.getElementById("id_dia_1");
                 dia2 = document.getElementById("id_dia_2");
                 dia3 = document.getElementById("id_dia_3");
                 dia4 = document.getElementById("id_dia_4");
                 dia5 = document.getElementById("id_dia_5");
+                
+                var soma = 0;
 
-                dia5 = document.getElementById("id_dia_5");
+                if(dia1.checked) soma++;
+                if(dia2.checked) soma++;
+                if(dia3.checked) soma++;
+                if(dia4.checked) soma++;
+                if(dia5.checked) soma++;
 
-                document.getElementById("id_plano").innerHTML = "Seu plano escolhido foi ??? ";
+                return soma;
 
             }
+
+            function get_quantidade_itens(){
+
+                id_item_1 = parseInt(document.getElementById("id_item_1").value);
+                id_item_2 = parseInt(document.getElementById("id_item_2").value);
+                id_item_3 = parseInt(document.getElementById("id_item_3").value);
+                id_item_4 = parseInt(document.getElementById("id_item_4").value);
+
+                var soma = 0;
+                soma =  id_item_1 + 
+                        id_item_2 + 
+                        id_item_3 + 
+                        id_item_4;
+                
+                return soma;
+
+            }
+            
+            function valida_dias_semanas(){
+
+                if(get_quantidade_dias() >= 2) return true;
+                else return false;
+
+            }
+
+            function valida_horario(){
+
+                id_h1 = document.getElementById("id_h1");
+                id_h2 = document.getElementById("id_h2");
+                id_h3 = document.getElementById("id_h3");
+                id_h4 = document.getElementById("id_h4");
+                
+                var soma = 0;
+
+                if(id_h1.checked) soma++;
+                if(id_h2.checked) soma++;
+                if(id_h3.checked) soma++;
+                if(id_h4.checked) soma++;
+
+                if(soma >= 1) return true;
+                else return false;
+
+            }
+
+            function valida_horario_especial(){
+
+                id_hesp_1 = document.getElementById("id_hesp_1");
+                id_hesp_2 = document.getElementById("id_hesp_2");
+                id_hesp_3 = document.getElementById("id_hesp_3");
+                id_hesp_4 = document.getElementById("id_hesp_4");
+                id_hesp_5 = document.getElementById("id_hesp_5");
+
+                var soma = 0;
+
+                if(id_hesp_1.checked) soma++;
+                if(id_hesp_2.checked) soma++;
+                if(id_hesp_3.checked) soma++;
+                if(id_hesp_4.checked) soma++;
+                if(id_hesp_5.checked) soma++;
+
+                if(soma >= 1) return true;
+                else return false;
+
+            }
+
+            function valida_itens(){
+                
+                soma = get_quantidade_itens();
+
+                if(soma >= 2 && soma <= 5) return true;
+                else return false;
+
+            }
+
+            function plano_escolhido(dias){
+
+                switch(dias) {
+                
+                    case 2:     return planos[0]
+                                break;
+                    case 3:     return planos[1]
+                                break;
+                    case 4:     return planos[2]
+                                break;
+                    case 5:     return planos[3]
+                                break;
+                    default:    return "erro";
+                                break;
+                
+                }
+
+            }
+            
+            function itens_escolhidos(){
+
+                var txt_array = new Array();
+                
+                id_item_1 = parseInt(document.getElementById("id_item_1").value);
+                id_item_2 = parseInt(document.getElementById("id_item_2").value);
+                id_item_3 = parseInt(document.getElementById("id_item_3").value);
+                id_item_4 = parseInt(document.getElementById("id_item_4").value);
+
+                if(id_item_1 > 0)   txt_array.push(id_item_1 + "xPão de Sal");
+                if(id_item_2 > 0)   txt_array.push(id_item_2 + "xPão Doce");
+                if(id_item_3 > 0)   txt_array.push(id_item_3 + "xPão de Queijo");
+                if(id_item_4 > 0)   txt_array.push(id_item_4 + "xBroinha");
+
+                return txt_array.join("+");
+                
+            }
+
+            function valor_plano(qtd_dias, qtd_itens){
+
+                if(qtd_dias == 2 && qtd_itens == 2) return 96.00;
+                if(qtd_dias == 2 && qtd_itens == 3) return 136.80;
+                if(qtd_dias == 2 && qtd_itens == 4) return 178.00;
+                if(qtd_dias == 2 && qtd_itens == 5) return 216.00;
+                if(qtd_dias == 3 && qtd_itens == 2) return 139.70;
+                if(qtd_dias == 3 && qtd_itens == 3) return 198.70;
+                if(qtd_dias == 3 && qtd_itens == 4) return 259.70;
+                if(qtd_dias == 3 && qtd_itens == 5) return 313.20;
+                if(qtd_dias == 4 && qtd_itens == 2) return 180.50;
+                if(qtd_dias == 4 && qtd_itens == 3) return 257.30;
+                if(qtd_dias == 4 && qtd_itens == 4) return 336.65;
+                if(qtd_dias == 4 && qtd_itens == 5) return 406.40;
+                if(qtd_dias == 5 && qtd_itens == 2) return 216.00;
+                if(qtd_dias == 5 && qtd_itens == 3) return 308.40;
+                if(qtd_dias == 5 && qtd_itens == 4) return 403.20;
+                if(qtd_dias == 5 && qtd_itens == 5) return 486.00;
+
+                return "erro 4";
+
+            }
+
+            function valor_plano_total(qtd_dias, qtd_itens, especial){
+
+                var esp = 0;
+                if(especial == true) esp = valor_plano_especial;
+
+                if(qtd_dias == 2 && qtd_itens == 2) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 2 && qtd_itens == 3) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 2 && qtd_itens == 4) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 2 && qtd_itens == 5) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 3 && qtd_itens == 2) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 3 && qtd_itens == 3) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 3 && qtd_itens == 4) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 3 && qtd_itens == 5) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 4 && qtd_itens == 2) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 4 && qtd_itens == 3) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 4 && qtd_itens == 4) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 4 && qtd_itens == 5) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 5 && qtd_itens == 2) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 5 && qtd_itens == 3) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 5 && qtd_itens == 4) return valor_plano(qtd_dias,qtd_itens)+esp;
+                if(qtd_dias == 5 && qtd_itens == 5) return valor_plano(qtd_dias,qtd_itens)+esp;
+
+                return "erro 4";
+
+
+            }
+
+            function get_paes_especiais(){
+
+                id_hesp_1 = document.getElementById("id_hesp_1").checked;
+                id_hesp_2 = document.getElementById("id_hesp_2").checked;
+                id_hesp_3 = document.getElementById("id_hesp_3").checked;
+                id_hesp_4 = document.getElementById("id_hesp_4").checked;
+                id_hesp_5 = document.getElementById("id_hesp_5").checked;
+
+                if(id_hesp_1 == true) return false;
+                if(id_hesp_2 == true) return true;
+                if(id_hesp_3 == true) return true;
+                if(id_hesp_4 == true) return true;
+                if(id_hesp_5 == true) return true;
+                
+                return false;
+
+            }
+
+            function processa_plano(){
+
+                var validacao = true;
+
+                if(!valida_nome()) validacao = false;
+                if(!valida_telefone()) validacao = false;
+                if(!valida_endereco()) validacao = false;
+                if(!valida_email()) validacao = false;
+                
+                if(!valida_dias_semanas()) validacao = false;
+                if(!valida_horario()) validacao = false;
+                if(!valida_horario_especial()) validacao = false;
+                if(!valida_itens()) validacao = false;
+
+                if(validacao){
+
+                    document.getElementById("id_botao_enviar").value = "Enviar proposta";
+                    document.getElementById("id_botao_enviar").disabled = false;
+                    
+                    paes_especiais_txt = "";
+                    if(get_paes_especiais()) paes_especiais_txt = "Com pães especiais R$199,00";
+                    else paes_especiais_txt = "Sem pães especiais";
+                    
+                    document.getElementById("id_plano").innerHTML = 
+                        
+                        plano_escolhido(get_quantidade_dias()) +
+                        " (" + itens_escolhidos() + ") Valor: R$" + valor_plano(get_quantidade_dias(), get_quantidade_itens()) + " <br>" + 
+                        paes_especiais_txt + "<br>" +
+                        "<br>Valor Total: R$" + valor_plano_total(get_quantidade_dias(), get_quantidade_itens(), get_paes_especiais());
+                    
+                }
+                else{
+
+                    document.getElementById("id_botao_enviar").value = "Preencha o formulário";
+                    document.getElementById("id_botao_enviar").disabled = true;
+                    document.getElementById("id_plano").innerHTML = "Preencha o questionário para ver seu plano";
+                }                
+
+            }
+
+            function envia_form(){
+
+                aceite = document.getElementById("id_aceite_contrato").checked;
+                if(aceite){
+
+
+
+                }else alert("É necessário realizar aceite dos termos do contrato.");
+
+            }
+
         </script>
         <div    id="id_tela_sucesso" 
                 style="display: none;">
@@ -55,37 +323,84 @@
         <div    name="formulario" 
                 id="id_formulario">
             <form name="main_form">
-                <div id="id_dias_semana">
-                    Dias por semana:<br>
+                <div style="background-color:#dddddd">
+                    Nome*:
+                </div>
+                <div>
+                    <input  type="text" 
+                            name="nome" 
+                            id="id_nome"
+                            size="70"
+                            onchange="javascript:processa_plano();">
+                </div>
+                <div style="background-color:#dddddd">
+                    Telefone*:
+                </div>
+                <div>
+                    <input  type="text" 
+                            name="telefone" 
+                            id="id_telefone"
+                            size="70"
+                            onclick="javascript:this.value = mascaraTelefone(this.value);"
+                            onkeypress="javascript:this.value = mascaraTelefone(this.value);"
+                            onkeydown="javascript:this.value = mascaraTelefone(this.value);"
+                            maxlength="15"
+                            onchange="javascript:processa_plano();">
+                </div>
+                <div style="background-color:#dddddd">
+                    Endereço*:
+                </div>
+                <div>
+                    <input  type="text" 
+                            name="nome" 
+                            id="id_endereco"
+                            size="70"
+                            onchange="javascript:processa_plano();">
+                </div>
+                <div style="background-color:#dddddd">
+                    E-mail*:
+                </div>
+                <div>
+                    <input  type="email" 
+                            name="email" 
+                            id="id_email"
+                            size="70"
+                            onchange="javascript:processa_plano();">
+                </div>
+                <div id="id_dias_semana" style="background-color:#dddddd">
+                    Dias por semana (mínimo 2 dias)*:
+                </div>
+                <div>
                     <input  type="checkbox" 
                             id="id_dia_1" 
                             name="dias[]" 
-                            onchange="javascript:processa_plano();"> Segunda-feira
+                            onclick="javascript:processa_plano();"> Segunda-feira
                     <input  type="checkbox" 
                             id="id_dia_2" 
                             name="dias[]" 
-                            onchange="javascript:processa_plano();"> Terça-feira
+                            onclick="javascript:processa_plano();"> Terça-feira
                     <input  type="checkbox" 
                             id="id_dia_3" 
                             name="dias[]" 
-                            onchange="javascript:processa_plano();"> Quarta-feira
+                            onclick="javascript:processa_plano();"> Quarta-feira
                     <input  type="checkbox" 
                             id="id_dia_4" 
                             name="dias[]" 
-                            onchange="javascript:processa_plano();"> Quinta-feira
+                            onclick="javascript:processa_plano();"> Quinta-feira
                     <input  type="checkbox" 
                             id="id_dia_5" 
                             name="dias[]" 
-                            onchange="javascript:processa_plano();"> Sexta-feira
+                            onclick="javascript:processa_plano();"> Sexta-feira
+                </div>                
+                <div id="id_horario_entrega" style="background-color:#dddddd">
+                    Horário de entrega*:
                 </div>
-                <div id="id_horario_entrega">
-                    Horário de entrega*:<br>
+                <div>
                     <input  type="radio" 
                             id="id_h1" 
                             name="horario" 
                             value="6" 
-                            onchange="javascript:processa_plano();"
-                            required> 
+                            onchange="javascript:processa_plano();"> 
                             <label for="6h">6h</label>
                     <input  type="radio" 
                             id="id_h2" 
@@ -106,9 +421,11 @@
                             onchange="javascript:processa_plano();"> 
                             <label for="9h">9h</label>
                 </div>
-                <div id="id_itens">
-                    Itens a serem enviados (soma máxima de todos os itens: 5 itens):<br>
-                    <select id="id_qtd_pao_de_sal" 
+                <div id="id_itens" style="background-color:#dddddd">
+                    Itens a serem enviados (mínimo: 2 itens, máximo: 5 itens)*:
+                </div>
+                <div>
+                    <select id="id_item_1" 
                             name="qtd_pao_de_sal" 
                             onchange="javascript:processa_plano();">
                         <option value="0">--</option>
@@ -118,7 +435,7 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>&nbsp;Pão de Sal<br/>
-                    <select id="id_qtd_pao_doce" 
+                    <select id="id_item_2" 
                             name="qtd_pao_doce" 
                             onchange="javascript:processa_plano();">
                         <option value="0">--</option>
@@ -128,7 +445,7 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>&nbsp;Pão Doce<br/>
-                    <select id="id_qtd_pao_queijo" 
+                    <select id="id_item_3" 
                             name="qtd_pao_queijo" 
                             onchange="javascript:processa_plano();">
                         <option value="0">--</option>
@@ -138,7 +455,7 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>&nbsp;Pão de Queijo<br/>
-                    <select id="id_qtd_broinha" 
+                    <select id="id_item_4" 
                             name="qtd_broinha" 
                             onchange="javascript:processa_plano();">
                         <option value="0">--</option>
@@ -149,36 +466,172 @@
                         <option value="5">5</option>
                     </select>&nbsp;Broinha
                 </div>
-                <div id="id_div_check_paes_especiais">
-                    <input  type="checkbox"
-                            id="id_especial" 
-                            name="especial" 
-                            onclick="javascript:habilita_espcial();processa_plano();"/>
-                            Desejo pães especiais na Sexta-feira?
+                <div id="id_div_especial_pergunta" style="background-color:#dddddd">
+                    Deseja receber a entrega de pães especiais na sexta-feira*?
                 </div>
-                <div style="display: none;" id="id_div_especial">
-                    Horário de entrega:
+                <div id="id_div_especial_resposta">
                     <input  type="radio" 
-                            name="horario" 
+                            id="id_hesp_1"
+                            name="horario_especial" 
+                            value="0"
+                            onclick="javascript:processa_plano();"> Não
+                    <input  type="radio" 
+                            id="id_hesp_2"
+                            name="horario_especial" 
                             value="17"
-                            checked> 17h
+                            onclick="javascript:processa_plano();"> Sim, às 17h
                     <input  type="radio" 
-                            name="horario" 
-                            value="18"> 18h
+                            id="id_hesp_3"
+                            name="horario_especial" 
+                            value="18"
+                            onclick="javascript:processa_plano();">  Sim, às 18h
                     <input  type="radio" 
-                            name="horario" 
-                            value="19"> 19h
+                            id="id_hesp_4"
+                            name="horario_especial" 
+                            value="19"
+                            onclick="javascript:processa_plano();">  Sim, às 19h
                     <input  type="radio" 
-                            name="horario" 
-                            value="20"> 20h
+                            id="id_hesp_5"
+                            name="horario_especial" 
+                            value="20"
+                            onclick="javascript:processa_plano();">  Sim, às 20h
                 </div>
-                <div name="plano" id="id_plano"></div>
+                <div style="background-color:#dddddd">
+                    Contrato*:
+                </div>
+                <div>
+                    <textarea rows="30" cols="70" disabled>
+
+Contrato de Adesão de Assinatura do Pão em Casa
+
+São partes deste contrato o “CLIENTE” ou “CONTRATANTE” que aderir ao plano de assinatura do Pão em Casa da <www.pãoemcasabh.com.br> inscrita no CNPJ sob o nº xx.XXX.XXX/XXXX-XX, com sede na Rua xxx, nº xxx, Sala XX Belo Horizonte/MG, CEP XXXXX-XXX, adiante denominada “Pão em Casa” ou “CONTRATADA”, ficando desde já certo e ajustado entre as partes as cláusulas e condições a seguir expostas.
+
+
+1.	Objeto
+O presente instrumento tem por objeto a comercialização do produto  assinatura  Pão em Casa, na forma de pagamento mensal, ao CLIENTE mediante acesso e aceite, no site da CONTRATADA, do presente contrato:
+
+1.1.	Para adesão, o CLIENTE deverá ler atentamente todo o conteúdo do contrato e, caso concorde com todas as cláusulas, aceitar irrestritamente o termo clicando no campo “Li e aceito os termos e condições de uso”;
+
+1.1.1.	Cabe integralmente ao CLIENTE a responsabilidade pela integridade e atualização do cadastro, fornecendo corretamente todos os dados para realização do mesmo.
+
+1.1.2.	É de inteira responsabilidade do CLIENTE manter o ambiente de seu computador, celular ou tablet seguro, com o uso de ferramentas disponíveis como antivírus e firewall, entre outras, de modo a contribuir na prevenção de riscos eletrônicos e, ainda, utilizar-se de softwares atualizados e eficientes.
+
+
+1.2.	A assinatura do Pão em Casa será ofertado para qualquer pessoa física ou jurídica conforme opção do plano mensal.
+
+1.3.	Nos planos “Só Meu” e “Tudo Nosso”, o estilo dos pães variantes (Pão Recheado Salgado e Rosca Doce) enviados semanalmente será definido pela equipe Pão em Casa.
+
+1.4.	O CLIENTE também poderá alterar os planos após o recebimento da 1º cesta, entrando em contato pelo telefone (31) 99598-5151, escolhendo de acordo com sua preferência, respeitando as opções disponíveis.
+
+2.	Benefícios de Assinantes 
+
+2.1.	Todo sócio da assinatura Pão em Casa faz parte do Clube do Pão, o clube de benefícios da Pão em Casa.
+
+2.2.	Em caráter promocional, excepcional e temporário, o CLIENTE poderá ter o desconto aumentado.
+
+2.3.	O CLIENTE terá acesso à ofertas e promoções exclusivas.
+
+2.4.	Taxa de entrega diferenciada para entrega de pedidos de loja e seleção do Clube Pão.
+
+2.5.	O CLIENTE assinante do Pão em Casa poderá utilizar a opção “Indique Amigos”, disponível na nossa plataforma, ou via contato pelo telefone (31) 99598-5151.O CLIENTE poderá utilizar a funcionalidade quantas vezes desejar.
+
+2.6.	Será considerada uma indicação aceita quando o Indicado realizar a assinatura e o pagamento da primeira seleção.
+
+2.6.1	Ao ter uma indicação aceita, o CLIENTE indicante e o indicado estarão aptos a receber o bônus por indicação, disponibilizado através de Cupom de Desconto Pão em Casa. 
+
+2.6.2	O cupom será disponibilizado em até 30 (trinta) dias corridos após o pagamento da primeira mensalidade pelo indicado. O CLIENTE indicante e indicado serão informados por e-mail. 
+
+2.6.3	O cupom poderá ser utilizado somente no site da Pão em Casa para adição de produtos avulsos em sua cesta, ou uma nova assinatura. Em hipótese alguma poderá ser utilizado para desconto na assinatura vigente. 
+
+2.6.4	O desconto só será concedido no primeiro mês após o Indicado realizar a assinatura e o pagamento da primeira seleção.
+
+2.6.5	O cupom é vinculado ao CPF, portanto, pessoal e intransferível.
+
+2.6.6	O valor do cupom variará de acordo com plano assinada pelo indicado: 
+ 
+
+3.	Suspensão Temporária
+
+3.1.	O CLIENTE poderá pausar a cobrança e recebimento da assinatura quantas vezes necessitar, no caso de viagem ou férias. O valor referente a esse período será descontado na mensalidade seguinte.
+
+3.2.	Para que a pausa seja efetivada, é necessário que o CLIENTE realize o procedimento, em até 10 (dez) dias úteis antes da data de inicio da pausa via contato pelo telefone (31) 99598-5151.
+
+3.3.	No mês seguinte a pausa, a cobrança e envio, serão realizado normalmente, concedenco o desconto referente ao periodo pausado no mês anterior.
+
+4.	Vigência
+
+4.1.	A assinatura do Pão em Casa possui renovação automática.
+
+4.2.	Na renovação serão aplicados os valores vigentes.
+
+4.3.	O contrato da forma de pagamento mensal vigorará por 30 (trinta) dias.
+
+5.	Cancelamento
+
+5.1.	O cancelamento da assinatura acarretará a perda imediata de todos os benefícios oferecidos ao CLIENTE assinante.
+
+5.2.	A solicitação de cancelamento pode ser realizada através do telefone (31) 99598-5151.
+
+5.3.	A solicitação de cancelamento deverá ser realizada em até 5 (cinco) dias úteis antes da data de cobrança. Cumprido esse prazo, o cancelamento será imediato e, quando aplicável, o reembolso será realizado em até 30 dias corridos.
+
+5.4.	Conforme Art.49 do Código de Defesa do Consumidor (CDC), solicitações de cancelamento realizadas até 7 (sete) dias após a data de assinatura do contrato, serão prontamente acatadas e o valor restituído.
+
+6.	Disposições Gerais
+
+6.1.	Somente é permitida uma assinatura por CLIENTE. No entanto, o CLIENTE poderá assinar quantos planos desejar.
+
+6.2.	A venda é permitida apenas para maiores de 18 (dezoito) anos.
+
+6.3.	Os preços da assinatura poderão sofrer reajustes, bem como a política de taxa de entrega, sendo o CLIENTE informado previamente.
+
+6.4.	Para os planos do dia a dia, as entregas são realizadas de segunda a sexta-feira das 07h às 09h. 
+
+6.5.	Para os planos de final de semana, as entregas são realizadas sempre as sexta-feiras das 17h as 20h.
+
+6.6.	Excepcionalmente, algumas entregas podem ocorrer aos sábados e feriados.
+
+6.7.	A partir da contratação, o CLIENTE declara estar ciente de que suas informações de cadastro irão constar no banco de dados da Pão em Casa.
+
+6.8.	A Pão em Casa assegura a inviolabilidade e o sigilo dos dados, garante que dados pessoais e cadastrais do CLIENTE não são disponibilizados a terceiros.
+
+6.9.	O CLIENTE autoriza a Pão em Casa a contatá-lo através de todas as formas possíveis (e- mail, telefone, SMS, WhatsApp e Push), podendo, inclusive enviar e-mails de promoções e propagandas.
+
+6.9.1.	O CLIENTE se declara ciente e aceita que pode receber comunicações ou promoções segmentadas de acordo com o seu perfil transacional ou comportamental. Ou seja, cada CLIENTE pode receber, ou deixar de receber, comunicações da marca, já que são enviadas de forma distinta e adequada para o seu perfil mapeado.
+
+6.10.	A contratação da presente assinatura não gerará ao CLIENTE nenhum outro direito ou vantagem que não esteja expressamente previsto neste regulamento.
+
+6.11.	Se qualquer previsão do presente contrato for considerada inválida, inexequível ou nula, as demais disposições permanecerão válidas.
+
+6.12.	A Pão em Casa se reserva no direito de, a qualquer momento, suspender ou cancelar a conta do CLIENTE que descumprir quaisquer dispositivos contidos no presente instrumento ou que praticar atos fraudulentos. Em caso de suspeita de fraude, os pedidos serão bloqueados e os valores pagos serão estornados ao CLIENTE.
+
+6.13.	O presente regulamento poderá ser alterado a qualquer momento pela Pão em Casa, a seu exclusivo critério. Neste caso, todas as modificações serão devidamente publicadas no site www.paoemcasabh.com.br.
+
+6.14.	A Pão em Casanão será considerada em mora ou inadimplente em relação a qualquer direito ou obrigação previstos neste regulamento se o motivo ou descumprimento decorrer de caso fortuito ou força maior, na forma estabelecida pelo Código Civil Brasileiro. 
+
+6.15.	O domicílio do cliente será o foro competente para dirimir eventuais divergências sobre este instrumento.
+
+6.16.	Não serão aceitas participações por quaisquer outros meios que não pelos previstos neste regulamento. 
+
+
+                    </textarea>
+                    <br>
+                    <input type="checkbox" name="aceite_contrato" id="id_aceite_contrato"> Aceito os termos do contrato
+                </div>
+
+                <div    id="id_txt_plano"
+                        style="background-color:#dddddd">Plano Escolhido:</div>
+                <div    id="id_plano">Preencha o questionário para ver seu plano</div>
+                
+
+                <div style="background-color:#dddddd">
+                    Enviar Proposta:
+                </div>
                 <div id="id_bt_enviar">
-                    <input  type="button" 
-                            value="Enviar Proposta" 
-                            onclik="">
-                    <input  type="submit" 
-                            value="teste">
+                    <input  type="button"
+                            id="id_botao_enviar"
+                            value="Preencha o formulário";
+                            onclick="javascript:envia_form()"
+                            disabled>
                 </div>
             </form>
         </div>
